@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
 
-    'djoser',
+    "djoser",
 
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -45,13 +45,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "rest_framework",
+    "rest_framework_swagger",
 
     "corsheaders",
 
     "users",
     "ads",
-
-    'drf_spectacular',
+    "redoc",
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
 ]
 
 
@@ -93,20 +95,28 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5
 }
 
+# SIMPLE_JWT
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
 # SPECTACULAR
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'SkyMarket API',
+    'TITLE': 'Ads board API',
     'DESCRIPTION': 'Simple API for ads board',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
 }
 
 # DJOSER
@@ -166,10 +176,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "/django_static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "django_static")
+STATIC_ROOT = os.path.join(BASE_DIR, "../django_static/")
 
 MEDIA_URL = "/django_media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "django_media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "../django_media/")
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True
