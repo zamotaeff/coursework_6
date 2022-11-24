@@ -254,6 +254,7 @@ python-versions = ">=3.6"
 [package.dependencies]
 Django = ">=2.2"
 djangorestframework = ">=3.10"
+drf-spectacular-sidecar = {version = "*", optional = true, markers = "extra == \"sidecar\""}
 inflection = ">=0.3.1"
 jsonschema = ">=2.6.0"
 PyYAML = ">=5.1"
@@ -262,6 +263,17 @@ uritemplate = ">=2.0.0"
 [package.extras]
 offline = ["drf-spectacular-sidecar"]
 sidecar = ["drf-spectacular-sidecar"]
+
+[[package]]
+name = "drf-spectacular-sidecar"
+version = "2022.11.1"
+description = "Serve self-contained distribution builds of Swagger UI and Redoc with Django"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+Django = ">=2.2"
 
 [[package]]
 name = "drf-yasg"
@@ -642,7 +654,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "f470662fd9afdd017d0f94e92d7042499752b87c637e5653d441566955be8936"
+content-hash = "dad6f57614c7c5136a8440cc992b1158203b5551905ca0dcf886c770d9882e92"
 
 [metadata.files]
 asgiref = [
@@ -810,6 +822,10 @@ drf-nested-routers = [
 drf-spectacular = [
     {file = "drf-spectacular-0.24.2.tar.gz", hash = "sha256:be32417594080a52f996afd83fd47ea9c2b83cbf13f6d3fbf3de809a0dfa7ead"},
     {file = "drf_spectacular-0.24.2-py3-none-any.whl", hash = "sha256:b276e6f7bda6dfb911e742dab87c6e97bc67da2dafe82d6fd8df7cec6c8b03ec"},
+]
+drf-spectacular-sidecar = [
+    {file = "drf-spectacular-sidecar-2022.11.1.tar.gz", hash = "sha256:46614fb4eff1bccbac176d74bd76e0240ab459dc62d9fd8b9d4d1479fb76ba0a"},
+    {file = "drf_spectacular_sidecar-2022.11.1-py3-none-any.whl", hash = "sha256:503860a34d4215d6b3c46d54b90d991dd0d202363e3b69b832348f08e4a8634b"},
 ]
 drf-yasg = [
     {file = "drf-yasg-1.20.0.tar.gz", hash = "sha256:d50f197c7f02545d0b736df88c6d5cf874f8fea2507ad85ad7de6ae5bf2d9e5a"},
