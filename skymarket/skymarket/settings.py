@@ -124,6 +124,10 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create': 'users.serializers.UserRegistrationSerializer'
     },
+    'PASSWORD_RESET_CONFIRM_URL': '#/reset_password_confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/reset_email_confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
     'LOGIN_FIELD': 'email'
 }
 
