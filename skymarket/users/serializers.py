@@ -17,6 +17,5 @@ class UserRegistrationSerializer(BaseUserRegistrationSerializer):
         return user
 
 
-
 class CurrentUserSerializer(serializers.ModelSerializer):
     pass
