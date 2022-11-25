@@ -17,5 +17,11 @@ class UserRegistrationSerializer(BaseUserRegistrationSerializer):
         return user
 
 
+class UserAdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username']
+
+
 class CurrentUserSerializer(serializers.ModelSerializer):
     pass

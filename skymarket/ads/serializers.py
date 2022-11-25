@@ -1,18 +1,43 @@
 from rest_framework import serializers
+from rest_framework.relations import SlugRelatedField
 
+from ads.models import Ad, Comment
+from users.models import User
 
-# TODO Сериалайзеры. Предлагаем Вам такую структуру, однако вы вправе использовать свою
+from users.serializers import UserAdSerializer
+
 
 class CommentSerializer(serializers.ModelSerializer):
-    # TODO сериалайзер для модели
-    pass
+    class Meta:
+        model = Comment
+        fields = "__all__"
 
 
 class AdSerializer(serializers.ModelSerializer):
-    # TODO сериалайзер для модели
-    pass
+    class Meta:
+        model = Ad
+        fields = "__all__"
+
+
+class AdListSerializer(serializers.ModelSerializer):
+    author = SlugRelatedField(slug_field='email',
+                              queryset=User.objects.all())
+
+    class Meta:
+        model = Ad
+        fields = "__all__"
 
 
 class AdDetailSerializer(serializers.ModelSerializer):
-    # TODO сериалайзер для модели
-    pass
+    author = UserAdSerializer
+
+    class Meta:
+        model = Ad
+        fields = "__all__"
+
+
+class AdCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ad
+        fields = "__all__"
