@@ -1,17 +1,15 @@
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 from djoser.views import UserViewSet
 from rest_framework.routers import SimpleRouter
 
 
 router = SimpleRouter()
-router.register('user', UserViewSet)
+router.register('users', UserViewSet, basename="users")
 
 
 urlpatterns = [
-    path('user/auth/', include('djoser.urls'), name="user-auth"),
-    path('user/auth/', include('djoser.urls.jwt'), name="user-auth-jwt"),
+    path("", include(router.urls)),
+    re_path(r'^auth/', include('djoser.urls')),
+    re_path(r'^auth/', include('djoser.urls.jwt')),
 ]
-
-urlpatterns += router.urls
-
