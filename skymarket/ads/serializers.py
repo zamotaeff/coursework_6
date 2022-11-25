@@ -7,12 +7,6 @@ from users.models import User
 from users.serializers import UserAdSerializer
 
 
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = "__all__"
-
-
 class AdSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ad
@@ -40,4 +34,34 @@ class AdCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ad
+        fields = "__all__"
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = "__all__"
+
+
+class CommentDetailSerializer(serializers.ModelSerializer):
+    author = UserAdSerializer
+
+    class Meta:
+        model = Ad
+        fields = "__all__"
+
+
+class CommentListSerializer(serializers.ModelSerializer):
+    author = UserAdSerializer
+    ad = AdSerializer
+
+    class Meta:
+        model = Comment
+        fields = "__all__"
+
+
+class CommentCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
         fields = "__all__"
