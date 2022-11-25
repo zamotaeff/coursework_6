@@ -7,10 +7,13 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, Sp
 
 urlpatterns = [
     path("api/admin/", admin.site.urls),
-    path("api/redoc-tasks/", include("redoc.urls")),
+
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+
+    path("api/schema/redoc-tasks/", include("redoc.urls")),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 
     path('', include('users.urls')),
     path('', include('ads.urls.ad')),

@@ -51,6 +51,9 @@ INSTALLED_APPS = [
 
     "users",
     "ads",
+
+    'django_filters',
+
     "redoc",
     "drf_spectacular",
     "drf_spectacular_sidecar",
@@ -99,13 +102,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': 'django_filters.rest_framework.DjangoFilterBackend',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 4
-}
-
-# SIMPLE_JWT
-SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
 }
 
 # SPECTACULAR
@@ -119,13 +118,17 @@ SPECTACULAR_SETTINGS = {
     'REDOC_DIST': 'SIDECAR',
 }
 
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
 # DJOSER
 DJOSER = {
     'SERIALIZERS': {
         'user_create': 'users.serializers.UserRegistrationSerializer'
     },
-    'PASSWORD_RESET_CONFIRM_URL': '#/reset_password_confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': '#/reset_email_confirm/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     # 'SEND_ACTIVATION_EMAIL': True,
     'LOGIN_FIELD': 'email'

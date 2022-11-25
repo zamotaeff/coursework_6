@@ -3,9 +3,11 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import UpdateView
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
+from ads.filters import AdFilterSet
 from ads.models import Ad
 from ads.permissions import IsOwnerAdOrStaff
 from ads.serializers import AdSerializer, AdDetailSerializer, AdListSerializer, AdCreateSerializer
@@ -59,6 +61,8 @@ class AdViewSet(ModelViewSet):
         'partial_update': [IsAuthenticated(), IsOwnerAdOrStaff()],
         'destroy': [IsAuthenticated(), IsOwnerAdOrStaff()],
     }
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = AdFilterSet
 
     def get_permissions(self):
         return self.permissions.get(self.action, self.default_permission)
@@ -67,8 +71,8 @@ class AdViewSet(ModelViewSet):
         return self.serializer_classes.get(self.action, self.default_serializer)
 
     def list(self, request, *args, **kwargs):
-        text = request.GET.get('text')
-        if text:
-            self.queryset = self.queryset.filter(name__icontains=text)
+        # text = request.GET.get('title')
+        # if text:
+        #     self.queryset = self.queryset.filter(title__icontains=text)
 
         return super().list(self, request, *args, **kwargs)
