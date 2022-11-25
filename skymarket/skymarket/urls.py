@@ -13,7 +13,8 @@ urlpatterns = [
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
-    path('', include('users.urls'))
+    path('', include('users.urls')),
+    path('', include('ads.urls.ad'))
 ]
 
 # To display images when debugging mode
