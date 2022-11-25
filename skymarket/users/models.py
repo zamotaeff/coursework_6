@@ -24,14 +24,17 @@ class UserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, phone, role, password=None, is_admin=False):
         if not email:
             raise ValueError('Users must have an email address')
+
         user = self.model(
             email=self.normalize_email(email),
             first_name=first_name,
             last_name=last_name,
             phone=phone,
-            role=role
+            is_admin=is_admin,
+            role=role,
+            is_active=True
         )
-        user.is_active = True
+
         user.set_password(password)
         user.save(using=self._db)
 
@@ -54,6 +57,7 @@ class UserManager(BaseUserManager):
         )
 
         user.save(using=self._db)
+
         return user
 
 
@@ -87,7 +91,7 @@ class User(AbstractBaseUser):
                               null=True,
                               blank=True)
     is_active = models.BooleanField(verbose_name='Активный',
-                                    default=False)
+                                    default=True)
     is_admin = models.BooleanField(verbose_name='Суперпользователь',
                                    default=False)
 
