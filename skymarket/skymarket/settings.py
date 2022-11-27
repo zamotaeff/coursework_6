@@ -12,20 +12,23 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import dotenv_values
+
+
+config = dotenv_values()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-vpvsd0%a*6n1s4@w+wmt*$loc_p4zw^pw6z@e8e21iwii%m3&5"
+SECRET_KEY = config.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.get('DEBUG')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -102,7 +105,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_FILTER_BACKENDS': 'django_filters.rest_framework.DjangoFilterBackend',
+    # 'DEFAULT_FILTER_BACKENDS': 'django_filters.rest_framework.DjangoFilterBackend',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 4
 }
@@ -112,6 +115,7 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Ads board API',
     'DESCRIPTION': 'Simple API for ads board',
     'VERSION': '1.0.0',
+    'SCHEMA_PATH_PREFIX': '/api/',
     'SERVE_INCLUDE_SCHEMA': False,
     'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
@@ -139,12 +143,12 @@ DJOSER = {
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.environ.get("DB_HOST", "localhost"),
-        "NAME": os.environ.get("POSTGRES_NAME", "skymarket"),
-        "PORT": os.environ.get("DB_PORT", "5432"),
-        "USER": os.environ.get("DB_USER", "skymarket"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "skymarket"),
+        "ENGINE": config.get("DB_ENGINE", "localhost"),
+        "HOST": config.get("DB_HOST", "localhost"),
+        "NAME": config.get("DB_NAME", "skymarket"),
+        "PORT": config.get("DB_PORT", "5432"),
+        "USER": config.get("DB_USER", "skymarket"),
+        "PASSWORD": config.get("DB_PASSWORD", "skymarket"),
     },
 }
 
@@ -200,12 +204,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Include Email Backend
 # TODO эти переменные мы добавили чтобы помочь Вам настроить почтовый ящик на django.
 # TODO теперь Вам необходимо создать файл .env на основе .env.example
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = config.get("EMAIL_ENGINE")
 EMAIL_USE_TLS = True
-EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
-EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST = config.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_HOST_USER = config.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config.get("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = config.get("EMAIL_PORT")
 
 # AUTH Profile
 AUTH_USER_MODEL = 'users.User'
