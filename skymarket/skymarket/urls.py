@@ -15,9 +15,9 @@ urlpatterns = [
 
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 
-    path('', include('users.urls')),
-    path('', include('ads.urls.ad')),
-    path('', include('ads.urls.comment'))
+    path('api/', include('users.urls')),
+    path('api/', include('ads.urls.ad')),
+    path('api/', include('ads.urls.comment'))
 ]
 
 # To display images when debugging mode
